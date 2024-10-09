@@ -2,6 +2,8 @@
 
 // & "address of" operator
 // * "dereference" operator
+// gcc -o 01 01.c
+// ./01
 
 int main() {
     int x = 10;

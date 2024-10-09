@@ -3,10 +3,10 @@
 int main() {
     int num = 10;
     float fnum = 3.14;
-    void* vptr;
+    void* vptr; // pointer to no type. helps with polymorphism
 
     vptr = &num;
-    printf("Integer: %d\n", *(int*)vptr);  // Output: 10
+    printf("Integer: %d\n", *(int*)vptr);  // Output: 10. casting this to int pointer type and then dereferencing it to get 10 %d tells what we are expecting i.e. an integer
     // vptr is a memory address "&num" but it is stored as a void pointer (no data type)
     // We can't dereference a void pointer, so we cast it to an integer pointer to store the integer value at that memory address "(int*)vptr"
     // Then we dereference it with the final asterisk "*" to get the value "*((int*)vptr)"

@@ -3,7 +3,7 @@
 int main() {
     // c-style type casting
     float f = 69.69;
-    int i = (int)f;
+    int i = (int)f; // staticaly typecasting float to an integer
     printf("%d\n", i);  // Output: 69 ( rounded down since decimal is truncated (deletes the .69 part) )
     // to char
     char c = (char)i;
