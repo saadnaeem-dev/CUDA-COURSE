@@ -24,6 +24,7 @@ Suppose we have a directory named 'clean' in the same directory as the Makefile.
 In short, we essentially make a bunch of mappings from target names to commands. If we have a file or directory with the same name as a target, make will not run the command. This is where `.PHONY` comes in.
 
 ### `:=` vs `=` in Makefiles
+#### Safe to use immediate assignment i.e. :=
 
 `=` is used for defining variables. It is called a **recursive assignment**. The value of the variable is re-evaluated each time the variable is used.
 
