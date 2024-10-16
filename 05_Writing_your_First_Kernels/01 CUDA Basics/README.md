@@ -77,21 +77,21 @@ CUDA program surface level runtime:
 
 ## Threads
 - each thread has local memory on it (i.e. registers) and is private to the thread
-- if want to add `a = [1, 2, 3, ... N]` and `b = [2, 4, 6, ... N]` each thread would do a single add ⇒ `a[0] + b[0]` (thread 1); `a[1] + b[1]` (thread 2); etc...
+- if want to add `a = [1, 2, 3, ... N]` and `b = [2, 4, 6, ... N]` each thread would do a single add ⇒ `a[0] + b[0]` (thread 1); `a[1] + b[1]` (thread 2); etc... using thread id to index into data i.e. getting the value at a[0]=1.
 
-## Warps
+## Warps (A Warp is a group of threads)
 ![](../assets/weft.png)
 - https://en.wikipedia.org/wiki/Warp_and_weft
 - The warp is the set of [yarns](https://en.wikipedia.org/wiki/Yarn) or other things stretched in place on a [loom](https://en.wikipedia.org/wiki/Loom) before the weft is introduced during the weaving process. It is regarded as the *longitudinal* set in a finished fabric with two or more sets of elements.
 - Each warp is inside of a block and parallelizes 32 threads
 - Instructions are issued to warps that then tell the threads what to do (not directly sent to threads)
-- There is no way of getting around using warps
-- Warp scheduler makes the warps run
-- 4 warp schedulers per SM
+- There is no way of getting around using warps (warp is responsible for handling the threads)
+- Warp scheduler makes the warps run (Warp scheduler can be thought of as a weft) 
+- 4 warp schedulers per SM (SM = Streaming Multi Processor per chip 4*32 = 128 threads per SM)
 ![](../assets/schedulers.png)
 
 ## Blocks
-- each block has shared memory (visible to all threads in thread block)
+- each block has shared memory (visible to all threads in thread block. thread 1 can see what thread 32 sees). Within the block this shared memory is call L1 Cache used for inter-thread communication.
 - execute the same code on different data, shared memory space, more efficient memory reads and writes since coordination is better
 
 ## Grids
