@@ -6,14 +6,23 @@ __global__ void whoami(void) {
         blockIdx.y * gridDim.x +    // gridDim.x is floor number in this building (blockIdx.y rows high)
         blockIdx.z * gridDim.x * gridDim.y;   // building number in this city (panes deep) gridDim.x = x dimesion in the grid, blockIdx.z = depth. in the pane which has depth, first get x, y and however deep the z is
 
-    int block_offset =
-        block_id * // times our apartment number
-        blockDim.x * blockDim.y * blockDim.z; // total threads per block (people per apartment)
+    int block_offset = // read from bottom to build up
+        block_id * // times our apartment number. the below line gets how many threads before your block (apt number) until you get to your block
+        blockDim.x * blockDim.y * blockDim.z; // total threads per block (people per apartment). blockDim.x = threads in x, blockDim.y threads in y, blockDim.z threads in z we multiply these together to get the threads per block, this line is thread level off set before we build up to our block.
 
-    int thread_offset =
-        threadIdx.x +  
-        threadIdx.y * blockDim.x +
-        threadIdx.z * blockDim.x * blockDim.y;
+    int thread_offset = // same analogy as block_id except for thread_offset
+        threadIdx.x +  // offset in x
+        threadIdx.y * blockDim.x + // offset for y accounting for x dimension
+        threadIdx.z * blockDim.x * blockDim.y; // offset for z accounting for both x and y dimensions
+        // threadIdx.x: The thread's position in the x dimension within the block.
+        // threadIdx.y: The thread's position in the y dimension within the block.
+        // threadIdx.z: The thread's position in the z dimension within the block.
+        // blockDim.x: The size (number of threads) in the x dimension of the block.
+        // blockDim.y: The size (number of threads) in the y dimension of the block.
+        // threadIdx.x: This is the thread's position within the x dimension. It directly contributes to the offset.
+        // threadIdx.y * blockDim.x: This accounts for all the threads in the y dimension before the current y position.
+        // For every increment in threadIdx.z, you have blockDim.x * blockDim.y threads in the entire 2D plane of the x and y dimensions that have already been counted. So, you multiply threadIdx.z by the total number of threads in the x and y dimensions to shift the x and y offsets for threads in previous z positions.
+        // Summary: The formula effectively flattens the 3D thread indices while accounting for offset (x, y, z) into a 1D linear index by accounting for the size of the block in each dimension. The formula works as
 
     int id = block_offset + thread_offset; // global person id in the entire apartment complex
 
