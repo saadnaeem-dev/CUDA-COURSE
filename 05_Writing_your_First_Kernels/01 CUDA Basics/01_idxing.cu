@@ -4,7 +4,7 @@ __global__ void whoami(void) {
     int block_id =
         blockIdx.x +    // apartment number on this floor (points across)
         blockIdx.y * gridDim.x +    // floor number in this building (rows high)
-        blockIdx.z * gridDim.x * gridDim.y;   // building number in this city (panes deep)
+        blockIdx.z * gridDim.x * gridDim.y;   // building number in this city (panes deep) gridDim.x = x dimesion in the grid, blockIdx.z = depth
 
     int block_offset =
         block_id * // times our apartment number

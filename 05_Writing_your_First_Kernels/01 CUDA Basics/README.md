@@ -68,15 +68,15 @@ CUDA program surface level runtime:
 4. Kernel executed as a Grid of Blocks of Threads
 
 ### 4 technical terms:
-- `gridDim` ⇒ number of blocks in the grid
-- `blockIdx` ⇒ index of the block in the grid
-- `blockDim` ⇒ number of threads in a block
+- `gridDim` ⇒ number of blocks in the grid (size of the grid)
+- `blockIdx` ⇒ index of the block in the grid (where is the block in the grid in x,y, & z dimension i.e. the coordinates in the grid)
+- `blockDim` ⇒ number of threads in a block (how big the block is)
 - `threadIdx` ⇒ index of the thread in the block
 
 (more on this in video lectures)
 
 ## Threads
-- each thread has local memory (registers) and is private to the thread
+- each thread has local memory on it (i.e. registers) and is private to the thread
 - if want to add `a = [1, 2, 3, ... N]` and `b = [2, 4, 6, ... N]` each thread would do a single add ⇒ `a[0] + b[0]` (thread 1); `a[1] + b[1]` (thread 2); etc...
 
 ## Warps
